@@ -1,0 +1,40 @@
+{
+  "name": "tsp-network",
+  "version": "1.0.0",
+  "description": "Advanced Network and Api management for JavaScript; TypeScript first",
+  "license": "MIT",
+  "keywords": [
+    "network",
+    "api",
+    "typescript",
+    "javascript",
+    "threestup"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/threestup/network.git"
+  },
+  "dependencies": {
+    "es6-promise": "^4.1.0",
+    "isomorphic-fetch": "^2.2.1",
+    "ramda": "^0.23.0",
+    "tsp-monads": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^3.4.35",
+    "@types/isomorphic-fetch": "^0.0.33",
+    "@types/mocha": "^2.2.40",
+    "@types/node": "^7.0.8",
+    "@types/ramda": "^0.0.4",
+    "@types/sinon": "^1.16.35",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "sinon": "^2.0.0",
+    "typescript": "^2.2.1"
+  }
+}
