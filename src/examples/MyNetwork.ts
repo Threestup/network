@@ -1,10 +1,10 @@
 import 'isomorphic-fetch';
+import { Result, None } from 'tsp-monads';
 
 import { MyApi, MyApiOperation } from './MyApi';
 
-import { ApiMethod, IApiConfig } from '../Api';
-import { BaseNetwork, INetwork } from '../Network';
-import { Result, None } from 'tsp-monads';
+import { ApiMethod, IApiConfig } from '../Api/Api';
+import { BaseNetwork, INetwork } from '../Api/Network';
 
 class MyNetwork extends BaseNetwork<MyApiOperation> implements INetwork<MyApiOperation> {
 

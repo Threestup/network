@@ -3,7 +3,8 @@ import { Result, Ok, Err } from 'tsp-monads';
 
 import { MyApiOperation } from './MyApi';
 import { MyNetwork } from './MyNetwork';
-import { IStubNetwork } from '../Network';
+
+import { IStubNetwork } from '../Api/Network';
 
 class MyStubNetwork extends MyNetwork implements IStubNetwork<MyApiOperation> {
 

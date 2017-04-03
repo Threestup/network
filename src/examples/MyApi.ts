@@ -1,4 +1,4 @@
-import { BaseApi, IApi, IApiConfig, ApiMethod } from '../Api';
+import { BaseApi, IApi, IApiConfig, ApiMethod } from '../Api/Api';
 
 export enum MyApiOperation {SignIn, SignOut, Unknown}
 
