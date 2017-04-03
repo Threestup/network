@@ -4,9 +4,13 @@ import { Ok, Err, Result } from 'tsp-monads';
 
 import { IApi, IApiConfig } from './Api';
 
+export type Fetch = (input:Request|string, init?:RequestInit) => Promise<Response>;
+
 export interface IBaseNetwork<O> {
     config:IApi<O>;
-    init(req:Request):Promise<Result<any, any>>;
+    provider:Fetch;
+    configureProvider():Fetch;
+    eval(req:Request):Promise<Result<any, any>>;
 }
 
 export interface INetwork<O> extends IBaseNetwork<O> {
@@ -14,13 +18,25 @@ export interface INetwork<O> extends IBaseNetwork<O> {
 }
 
 export interface IStubNetwork<O> extends INetwork<O> {
+    //configureProvider():this;
     getSampleData(operation:O, isOk:boolean):any;
 }
 
 export class BaseNetwork<O> implements IBaseNetwork<O> {
     config:IApi<O>;
+    provider:Fetch;
 
-    init(req:Request, provider = fetch):Promise<Result<any, any>> {
+    constructor(p = fetch) {
+        this.provider = p;
+    }
+
+    configureProvider():Fetch {
+        return this.provider;
+    }
+
+    eval(req:Request):Promise<Result<any, any>> {
+        const provider = this.configureProvider();
+
         return provider(req)
             .then((response:Response) => {
                 let val:Promise<Result<any, any>>;
@@ -33,3 +49,14 @@ export class BaseNetwork<O> implements IBaseNetwork<O> {
             });
     }
 }
+
+export const ConfigureFakeProvider = (retBody:string, status:number = 200, delay = 0):Fetch => {
+    return (req:Request|string, init?:RequestInit) => {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => resolve(new Response(retBody, {
+                status: status,
+                headers: req instanceof Request ? req.headers : undefined
+            })), delay);
+        });
+    };
+};

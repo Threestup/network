@@ -39,7 +39,7 @@ class MyNetwork extends BaseNetwork<MyApiOperation> implements INetwork<MyApiOpe
 
         const url = this.config.getBaseUrl() + this.config.getUrl();
 
-        return this.init(new Request(url, {
+        return this.eval(new Request(url, {
             method,
             headers,
             body: this.config.getData().match({
