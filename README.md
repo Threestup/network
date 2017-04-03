@@ -1,4 +1,4 @@
-# Advanced React Forms
+# Advanced Network and API management
 
 [![CircleCI](https://circleci.com/gh/Threestup/react-forms.svg?style=svg)](https://circleci.com/gh/Threestup/react-forms)
 
@@ -7,7 +7,7 @@
 ## Install
 
 ```
-yarn add tsp-react-forms
+yarn add tsp-network
 ```
 
 ## Basic Usage
