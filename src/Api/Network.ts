@@ -1,6 +1,6 @@
 import 'isomorphic-fetch';
 import { Promise } from 'es6-promise';
-import { Ok, Err, Result } from 'tsp-monads';
+import { Err, Ok, Result } from 'tsp-monads';
 
 import { IApi, IApiConfig } from './Api';
 
@@ -18,7 +18,6 @@ export interface INetwork<O> extends IBaseNetwork<O> {
 }
 
 export interface IStubNetwork<O> extends INetwork<O> {
-    //configureProvider():this;
     getSampleData(operation:O, isOk:boolean):any;
 }
 

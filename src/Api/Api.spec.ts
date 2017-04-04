@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { is_ok, is_err } from 'tsp-monads';
+import { is_err, is_ok } from 'tsp-monads';
 
 import { BaseApi } from './Api';
 

@@ -1,5 +1,5 @@
 import { gt } from 'ramda';
-import { Option, Some, Result, Err, Ok } from 'tsp-monads';
+import { Err, Ok, Option, Result, Some } from 'tsp-monads';
 
 export enum ApiMethod { UNKNOWN = 1, GET, POST, PUT, DELETE }
 

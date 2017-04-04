@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { is_ok, is_err } from 'tsp-monads';
+import { is_err, is_ok } from 'tsp-monads';
 
 import { BaseNetwork, ConfigureFakeProvider } from './Network';
 
@@ -55,7 +55,6 @@ describe('Api/Network', () => {
             }).catch(err => {
                 expect(err instanceof Error).to.equal(true);
                 expect(err.name).to.equal('SyntaxError');
-
             });
         });
     });
