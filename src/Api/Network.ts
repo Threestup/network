@@ -9,7 +9,7 @@ export type Fetch = (input: Request | string, init?: RequestInit) => Promise<Res
 export interface IBaseNetwork<O> {
   config: IApi<O>;
   provider: Fetch;
-  configureProvider(): Fetch;
+  //configureProvider(): Fetch;
   eval(req: Request): Promise<Result<any, any>>;
 }
 
@@ -29,14 +29,14 @@ export class BaseNetwork<O> implements IBaseNetwork<O> {
     this.provider = p;
   }
 
-  configureProvider(): Fetch {
-    return this.provider;
-  }
+  //configureProvider(): Fetch {
+  //  return this.provider;
+  //}
 
   eval(req: Request): Promise<Result<any, any>> {
-    const provider = this.configureProvider();
+    //const provider = this.configureProvider();
 
-    return provider(req)
+    return this.provider(req)
       .then((response: Response) => {
         let val: Promise<Result<any, any>>;
 
