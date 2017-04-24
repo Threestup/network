@@ -1,22 +1,21 @@
 import 'isomorphic-fetch';
-import { Result, None } from 'tsp-monads';
+import { Result } from 'tsp-monads';
 
 import { MyApi, MyApiOperation } from './MyApi';
 
-import { ApiMethod, IApiConfig } from '../Api/Api';
-import { BaseNetwork, INetwork } from '../Api/Network';
+import { ApiMethod, IApi, IApiConfig } from '../Api/Api';
+import { BaseNetwork, Fetch, INetwork } from '../Api/Network';
 
-class MyNetwork extends BaseNetwork<MyApiOperation> implements INetwork<MyApiOperation> {
+class MyNetwork extends BaseNetwork implements INetwork<MyApiOperation> {
+
+  config: IApi<MyApiOperation>;
 
   private static defaultConfig: IApiConfig<MyApiOperation> = {
     operation: MyApiOperation.Default,
-    params: None,
-    data: None,
-    urlKeys: None,
   };
 
   request(ApiConfigOverride: Partial<IApiConfig<MyApiOperation>>): Promise<Result<any, any>> {
-    this.config = new MyApi({...MyNetwork.defaultConfig, ApiConfigOverride});
+    this.config = new MyApi(Object.assign({}, MyNetwork.defaultConfig, ApiConfigOverride));
 
     let method  = ApiMethod[this.config.getMethod()],
         headers = new Headers();
@@ -39,7 +38,7 @@ class MyNetwork extends BaseNetwork<MyApiOperation> implements INetwork<MyApiOpe
 
     const url = this.config.getBaseUrl().unwrap_or('http://localhost') + this.config.getUrl();
 
-    return this.eval(new Request(url, {
+    return this.init(this.getProvider(), new Request(url, {
       method,
       headers,
       body: this.config.getData().match({
@@ -47,6 +46,10 @@ class MyNetwork extends BaseNetwork<MyApiOperation> implements INetwork<MyApiOpe
         none: () => undefined
       })
     }));
+  }
+
+  getProvider(): Fetch {
+    return fetch;
   }
 }
 

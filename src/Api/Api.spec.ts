@@ -4,7 +4,10 @@ import { BaseApi } from './Api';
 
 enum TestApiOperation { Default }
 
-describe('Api/Api', () => {
+describe(__filename, () => {
+  describe('constructor', () => {
+  });
+
   describe('getBaseUrl', () => {
     it('correctly returns baseUrl wrapped in Ok if found in process.env', () => {
       const process_stub = {

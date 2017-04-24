@@ -4,7 +4,7 @@ import { is_err, is_ok } from 'tsp-monads';
 
 import { BaseNetwork, ConfigureFakeProvider } from './Network';
 
-describe('Api/Network', () => {
+describe(__filename, () => {
   let sandbox: any;
 
   beforeEach(() => {
@@ -15,12 +15,12 @@ describe('Api/Network', () => {
     sandbox.restore();
   });
 
-  describe('eval', () => {
+  describe('init', () => {
     it('should correctly evaluate a request and return parsed JSON wrapped in Ok', () => {
       const provider = ConfigureFakeProvider('{"a": 1}');
 
-      const subject = new BaseNetwork(provider)
-        .eval(new Request('/url'));
+      const subject = new BaseNetwork()
+        .init(provider, new Request('/url'));
 
       subject.then(_ => {
         expect(_.is_ok()).to.equal(true);
@@ -33,8 +33,8 @@ describe('Api/Network', () => {
     it('should correctly evaluate a request and return parsed JSON wrapped in Err', () => {
       const provider = ConfigureFakeProvider('{"error": "Object not found"}', 404);
 
-      const subject = new BaseNetwork(provider)
-        .eval(new Request('/url'));
+      const subject = new BaseNetwork()
+        .init(provider, new Request('/url'));
 
       subject.then(_ => {
         expect(_.is_err()).to.equal(true);
@@ -47,8 +47,8 @@ describe('Api/Network', () => {
     it('should correctly evaluate a request and reject with parse error if content malformed', () => {
       const provider = ConfigureFakeProvider('{null}');
 
-      const subject = new BaseNetwork(provider)
-        .eval(new Request('/url'));
+      const subject = new BaseNetwork()
+        .init(provider, new Request('/url'));
 
       subject.then(_ => {
         expect.fail('Has to fail!');

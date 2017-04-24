@@ -4,6 +4,11 @@
     "declaration": true,
     "diagnostics": true,
     "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "ES5",
+      "ES2015.Core",
+      "dom"
+    ],
     "module": "commonjs",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,

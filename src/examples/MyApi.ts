@@ -1,30 +1,25 @@
-import { BaseApi, IApi, IApiConfig, ApiMethod } from '../Api/Api';
+import { BaseApi, IApi, ApiMethod } from '../Api/Api';
 
-export enum MyApiOperation { Default = 0, SignIn, SignOut }
+export enum MyApiOperation { Default = 0, GetSomething, PostSomething }
 
 class MyApi extends BaseApi<MyApiOperation> implements IApi<MyApiOperation> {
 
-  constructor(config: IApiConfig<MyApiOperation>) {
-    super(config);
-  }
-
   getMethod(): ApiMethod {
     switch (this.operation) {
-      case MyApiOperation.SignIn:
-        return ApiMethod.POST;
-      case MyApiOperation.SignOut:
-        return ApiMethod.DELETE;
-      default:
+      case MyApiOperation.GetSomething:
         return ApiMethod.GET;
+      case MyApiOperation.PostSomething:
+        return ApiMethod.POST;
+      default:
+        return ApiMethod.GET; // @TODO not sure what the default should be..
     }
   }
 
   getUrl(): string {
     switch (this.operation) {
-      case MyApiOperation.SignIn:
-        return '/user/sign-in';
-      case MyApiOperation.SignOut:
-        return '/user/sign-out';
+      case MyApiOperation.GetSomething:
+      case MyApiOperation.PostSomething:
+        return '/something';
       default:
         return '/';
     }
@@ -32,10 +27,10 @@ class MyApi extends BaseApi<MyApiOperation> implements IApi<MyApiOperation> {
 
   isProtected(): boolean {
     switch (this.operation) {
-      case MyApiOperation.SignOut:
-        return true;
-      case MyApiOperation.SignIn:
+      case MyApiOperation.GetSomething:
         return false;
+      case MyApiOperation.PostSomething:
+        return true;
       default:
         return false;
     }

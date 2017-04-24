@@ -1,5 +1,3 @@
-import { Ok, Err } from 'tsp-monads';
-
 import { MyApiOperation } from './MyApi';
 import { MyNetwork } from './MyNetwork';
 
@@ -7,23 +5,21 @@ import { IStubNetwork, ConfigureFakeProvider, Fetch } from '../Api/Network';
 
 class MyStubNetwork extends MyNetwork implements IStubNetwork<MyApiOperation> {
 
-  constructor(private delay = 250, private status = 200) {
+  constructor(public delay = 250, public status = 200) {
     super();
-
-    this.provider = this.configureProvider();
   }
 
-  private configureProvider(): Fetch {
+  getProvider(): Fetch {
     const isOk = this.status >= 200 && this.status < 300,
           body = this.getSampleData(this.config.operation, isOk);
 
-    return ConfigureFakeProvider(body.toString(), this.status, this.delay);
+    return ConfigureFakeProvider(JSON.stringify(body), this.status, this.delay);
   }
 
-  getSampleData(operation: MyApiOperation, isOk: boolean): any {
+  getSampleData(operation: MyApiOperation, isOk: boolean = true): any {
     switch (operation) {
       default:
-        return isOk ? Ok(null) : Err(null);
+        return isOk ? {ok: 1, err: 0} : {ok: 0, err: 1};
     }
   }
 }
