@@ -3,12 +3,12 @@ import { Result } from 'tsp-monads';
 
 import { MyApi, MyApiOperation } from './MyApi';
 
-import { ApiMethod, IApi, IApiConfig } from '../Api/Api';
+import { ApiMethod, IApiConfig } from '../Api/Api';
 import { BaseNetwork, Fetch, INetwork } from '../Api/Network';
 
 class MyNetwork extends BaseNetwork implements INetwork<MyApiOperation> {
 
-  config: IApi<MyApiOperation>;
+  config: MyApi;
 
   private static defaultConfig: IApiConfig<MyApiOperation> = {
     operation: MyApiOperation.Default,
