@@ -1,4 +1,4 @@
-# Advanced Network and API management
+# Type safe Network and Api
 
 [![CircleCI](https://circleci.com/gh/Threestup/network.svg?style=svg)](https://circleci.com/gh/Threestup/network)
 [![npm version](https://badge.fury.io/js/tsp-network.svg)](https://badge.fury.io/js/tsp-network)
