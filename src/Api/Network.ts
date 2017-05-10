@@ -23,15 +23,10 @@ export interface IStubNetwork<O> extends INetwork<O> {
 export class BaseNetwork implements IBaseNetwork {
   init(provider: Fetch, request: Request): Promise<Result<any, any>> {
     return provider(request)
-      .then((response: Response) => {
-        let val: Promise<Result<any, any>>;
-
-        val = response
-          .json()
-          .then(_ => response.ok ? Ok(_) : Err(_));
-
-        return val;
-      });
+      .then((response: Response) => response
+        .json()
+        .then(_ => response.ok ? Ok(_) : Err(_))
+      );
   }
 }
 
