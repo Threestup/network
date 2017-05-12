@@ -1,6 +1,6 @@
 {
   "name": "tsp-network",
-  "version": "4.1.1",
+  "version": "5.0.0",
   "description": "Advanced Network and Api management for JavaScript; TypeScript first",
   "license": "MIT",
   "keywords": [
