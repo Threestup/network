@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import { is_ok } from 'tsp-monads';
 
 import { MyApiOperation } from './MyApi';
 import { MyStubNetwork } from './MyStubNetwork';
@@ -35,16 +34,20 @@ describe(__filename, () => {
   });
 
   describe('examples', () => {
-    it('correctly evaluates a request', () => {
+    it('correctly evaluates a request', done => {
       const provider = new MyStubNetwork(0, 200);
 
       let subject = provider.request({operation: MyApiOperation.GetSomething});
 
       subject.then(_ => {
         expect(_.is_ok()).to.equal(true);
-        expect(is_ok(_) ? _.unwrap() : null).to.deep.equal(provider.getSampleData(MyApiOperation.GetSomething));
+        expect(_.unwrap()).to.deep.equal(provider.getSampleData(MyApiOperation.GetSomething));
+
+        done();
       }).catch(err => {
         expect.fail('Has to be a Result!');
+
+        done();
       });
     });
   });

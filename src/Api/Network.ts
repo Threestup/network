@@ -21,12 +21,19 @@ export interface IStubNetwork<O> extends INetwork<O> {
 }
 
 export class BaseNetwork implements IBaseNetwork {
+  static handleResponse(response: Response): Promise<Result<any, any>> {
+    return response
+      .json()
+      .then(json => response.ok ? Ok(json) : Err(Object.assign({}, {
+        data: json,
+        status: response.status,
+        statusText: response.statusText
+      })))
+  }
+
   init(provider: Fetch, request: Request): Promise<Result<any, any>> {
     return provider(request)
-      .then((response: Response) => response
-        .json()
-        .then(_ => response.ok ? Ok(_) : Err(_))
-      );
+      .then(BaseNetwork.handleResponse);
   }
 }
 

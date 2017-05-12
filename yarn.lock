@@ -309,9 +309,9 @@ text-encoding@0.6.4:
   version "0.6.4"
   resolved "https://registry.yarnpkg.com/text-encoding/-/text-encoding-0.6.4.tgz#e399a982257a276dae428bb92845cb71bdc26d19"
 
-tsp-monads@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/tsp-monads/-/tsp-monads-2.0.0.tgz#f8645ab8d819e3ed58137cd4c06f507145808f16"
+tsp-monads@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.yarnpkg.com/tsp-monads/-/tsp-monads-11.0.0.tgz#10d6541a0cc8f4658a1f5191409a462bfa46e4fc"
 
 type-detect@0.1.1:
   version "0.1.1"

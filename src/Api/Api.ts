@@ -1,4 +1,4 @@
-import { Option, Some } from 'tsp-monads';
+import { Option, Some, Result, Err, Ok } from 'tsp-monads';
 
 export enum ApiMethod { GET = 1, POST, PUT, DELETE }
 
@@ -17,7 +17,7 @@ export interface IBaseApi<T> {
   getBaseUrl(): Option<string>;
   getParams(): Option<Object>;
   getData(): Option<Object>;
-  getUrlKeyValue(key: string): Option<string>;
+  getUrlKeyValue(key: string): Result<string, string>;
 }
 
 export interface IApi<T> extends IBaseApi<T> {
@@ -51,7 +51,16 @@ export class BaseApi<T> implements IBaseApi<T> {
     return this.data;
   }
 
-  getUrlKeyValue(key: string, fallback = ''): Option<string> {
-    return this.urlKeys.map(_ => (_ as any)[key].toString())
+  getUrlKeyValue(key: string, fallback = ''): Result<string, string> {
+    return this.urlKeys.match({
+      some: _ => {
+        try {
+          return Ok((_ as any)[key].toString())
+        } catch (e) {
+          return Err(e)
+        }
+      },
+      none: Err('No Url Keys found')
+    });
   }
 }

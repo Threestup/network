@@ -79,7 +79,7 @@ describe(__filename, () => {
   });
 
   describe('getUrlKeyValue', () => {
-    it('correctly returns Option of value cast to string when key found in urlKeys config', () => {
+    it('correctly returns Result of value cast to string when key found in urlKeys config', () => {
       const urlKeys = {id: 123};
 
       const subject = new BaseApi({
@@ -87,11 +87,11 @@ describe(__filename, () => {
         urlKeys
       }).getUrlKeyValue('id');
 
-      expect(subject.is_some()).to.equal(true);
-      expect(subject.unwrap_or('')).to.equal('123');
+      expect(subject.is_ok()).to.equal(true);
+      expect(subject.unwrap()).to.equal('123');
     });
 
-    it('correctly returns None when key found in urlKeys config', () => {
+    it('correctly returns Err when key found in urlKeys config', () => {
       const urlKeys = {name: 'John Doe'};
 
       const subject = new BaseApi({
@@ -99,7 +99,14 @@ describe(__filename, () => {
         urlKeys
       }).getUrlKeyValue('id');
 
-      expect(subject.is_none()).to.equal(true);
+      expect(subject.is_err()).to.equal(true);
+    });
+
+    it('correctly returns Err when key no urlKeys found', () => {
+      const subject = new BaseApi({operation: TestApiOperation.Default}).getUrlKeyValue('something');
+
+      expect(subject.is_err()).to.equal(true);
+      expect(subject.unwrap_err()).to.equal('No Url Keys found');
     });
   });
 });
